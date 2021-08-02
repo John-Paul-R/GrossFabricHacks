@@ -12,6 +12,7 @@ import net.fabricmc.loader.launch.knot.UnsafeKnotClassLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import user11681.dynamicentry.DynamicEntry;
+import user11681.reflect.Classes;
 import user11681.reflect.Reflect;
 
 public class GrossFabricHacks implements LanguageAdapter {
@@ -90,7 +91,7 @@ public class GrossFabricHacks implements LanguageAdapter {
 
                 while (classStream.read(bytecode) != -1) {}
 
-                Reflect.defineClass(applicationClassLoader, name, bytecode, GrossFabricHacks.class.getProtectionDomain());
+                Classes.defineClass(applicationClassLoader, name, bytecode, GrossFabricHacks.class.getProtectionDomain());
             }
 
             LOGGER.warn("KnotClassLoader, you fool! Loading me was a grave mistake.");
@@ -100,6 +101,6 @@ public class GrossFabricHacks implements LanguageAdapter {
             throw new RuntimeException(throwable);
         }
 
-        DynamicEntry.executeOptionalEntrypoint("gfh:prePrePreLaunch", PrePrePreLaunch.class, PrePrePreLaunch::onPrePrePreLaunch);
+        DynamicEntry.tryExecute("gfh:prePrePreLaunch", PrePrePreLaunch.class, PrePrePreLaunch::onPrePrePreLaunch);
     }
 }

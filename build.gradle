@@ -12,7 +12,9 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    maven {url = "https://dl.bintray.com/user11681/maven"}
+//    maven {url = "https://dl.bintray.com/user11681/maven"}
+    maven {url = "https://auoeke.jfrog.io/artifactory/maven"}
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -32,9 +34,9 @@ dependencies {
 //    implementation(include("net.java.dev.jna:jna:5.3.1"))
 //    implementation(include("net.java.dev.jna:jna-platform:5.3.1"))
 
-    modImplementation(include("user11681:dynamicentry:0.0.2"))
-    include(implementation("user11681:reflect:0.2.0"))
-    include(implementation("net.gudenau.lib:unsafe:1.2.14"))
+    modImplementation(include("com.github.auoeke:dynamic-entry:master-SNAPSHOT"))//0.0.2"))
+    include(implementation("user11681:reflect:2.0.0"))
+    include(implementation("net.gudenau.lib:unsafe:1.4.3"))
 }
 
 processResources {
