@@ -7,6 +7,7 @@ import java.lang.instrument.UnmodifiableClassException;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Field;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.devtech.grossfabrichacks.GrossFabricHacks;
@@ -157,8 +158,9 @@ public class InstrumentationApi {
             final Field field = Class.forName("net.devtech.grossfabrichacks.instrumentation.InstrumentationAgent", false, FabricLoader.class.getClassLoader()).getDeclaredField("instrumentation");
 
             field.setAccessible(true);
-
-            instrumentation = (Instrumentation) field.get(null);
+            ByteBuddyAgent.install();
+            instrumentation = ByteBuddyAgent.getInstrumentation();
+            Objects.requireNonNull(instrumentation);
         } catch (final Throwable throwable) {
             LOGGER.error("An error occurred during an attempt to attach an instrumentation agent, which might be due to spaces in the path of the game's installation.", throwable);
         }
